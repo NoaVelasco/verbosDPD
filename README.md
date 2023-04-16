@@ -17,7 +17,7 @@ Este es un proyecto personal para un compendio de notas de corrección en Obsidi
 Para no saturar la red de la RAE, en lugar de realizar un raspado completo de los +10000 verbos de un diccionario de verbos, va comprobando un verbo cada 2 segundos hasta llegar a 100 por sesión. El diccionario es de [este repositorio](https://github.com/olea/lemarios.git) (gracias a Ismael Olea).  
 
 ## Uso
-Para ejecutar la herramienta tal y como está pensada, hay que asegurarse de que el contenido de `listalistas.txt` empieza por `lista_001.txt` y sigue de forma consecutiva hasta el 108. Si no es el caso, solo hay que ejecutar este código al final del archivo de Jupyter Notes (o crearlo en la carpeta raíz del proyecto): 
+Para ejecutar la herramienta tal y como está pensada, hay que asegurarse de que el contenido de `lista_verbos\llistalistas.txt` empieza por `lista_001.txt` y sigue de forma consecutiva hasta el 108. Si no es el caso, solo hay que usar el contenido de `lista_verbos\listalistas_bckp.txt` o ejecutar este código al final del archivo de Jupyter Notes (o crearlo en la carpeta raíz del proyecto): 
 
 ```python
 listalistas = []
@@ -41,13 +41,13 @@ Pero para comprobar todos los verbos de una sola vez hay que modificar el archiv
 
 En la consola de la terminal se irá mostrando el progreso del 001 al 100:
 
-> 001 - anastomosarse: no existe
-> 002 - anatematizar: añadido
-> 003 - anatemizar: añadido
-> 004 - anatomizar: no existe
-> 005 - anchar: no existe
-> 006 - anchoar: no existe
-> …
-> 100 - aparar: no existe
-> Se han añadido 21 verbos.
-> Terminado
+> 001 - anastomosarse: no existe  
+> 002 - anatematizar: añadido  
+> 003 - anatemizar: añadido  
+> 004 - anatomizar: no existe  
+> 005 - anchar: no existe  
+> 006 - anchoar: no existe  
+> …  
+> 100 - aparar: no existe  
+> Se han añadido 21 verbos.  
+> Terminado  

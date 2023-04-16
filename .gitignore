@@ -1,3 +1,6 @@
 _pruebas/
 .vscode/
 verbos/*
+!verbos/.gitkeep
+/lista_verbos/verbos_failed.txt
+/lista_verbos/verbos_scrapeados.txt
