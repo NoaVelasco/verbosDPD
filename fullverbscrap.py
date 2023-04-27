@@ -4,11 +4,12 @@
 # pylint: disable=C0103
 
 """
-Una aplicación que recorre poco a poco un diccionario
-y entra en el _DPD_ para comprobar si existen los verbos.
+Una aplicación que prueba uno a uno los verbos que aparecen en una lista.
+Primero, entra en el DPD (Diccionario Panhispánico de Dudas de la RAE)
+para comprobar si existe el verbo.
 
-Si se encuentra en el _DPD_, crea una nota personalizada
-en un archivo de Markdown. Además de los datos del _DPD_,
+Si se encuentra en el DPD, crea una nota personalizada
+en un archivo de Markdown. Además de los datos del DPD,
 también añade la definición del _Diccionario de la lengua española_.
 """
 
@@ -120,18 +121,10 @@ def dle_rae(word):
     except requests.exceptions.ConnectionError as exc:
         print(exc)
 
-# Comprobamos cuál es la siguiente lista de verbos que vamos a emplear.
-# Como estamos iterando +10000 verbos, he creado 108 listas con 100 verbos cada una.
-# La manera de seguir el orden es consultando la lista de listas, coger la primera
-# y luego borrarla de la lista para ir en orden.
-with open('lista_verbos/listalistas.txt', 'r', encoding='utf-8') as f:
-    lines = f.readlines()
-lista_actual = lines[0].strip()
-url_lista = f'lista_verbos/{lista_actual}'
+# Esta nueva versión escrapea +1700 verbos que he confirmado que están en el DPD.
+with open('lista_verbos/verbos_scrapeados.txt', 'r', encoding='utf-8') as f:
+    urls = f.readlines()
 
-# Ahora extraemos los 100 verbos de la lista que nos toca
-with open(url_lista, 'r', encoding='utf-8') as fh:
-    urls = fh.readlines()
 
 # Esto es para mostrar avances en la consola.
 contador = 1
@@ -140,7 +133,7 @@ encontrados = 0
 for url in urls:
     # Vamos a esperar un poco entre scrapeos para no saturar la red.
     # Entre 0.5 y 2 segundos, por ejemplo.
-    time.sleep(2)
+    time.sleep(1)
     # Cada verbo de la lista tiene al final un salto que necesitamos quitar:
     url = url.strip()
     url_total = f'{url_base}{url}'
@@ -181,32 +174,17 @@ for url in urls:
                     f.write(
                         '\n---\n[[_index | índice]]\n[[verbos]]\n[[tiempos verbales]]\n#verbos')
 
-                # Cuando crea una nueva nota de un verbo, lo señala.
-                with open('lista_verbos/verbos_scrapeados.txt', 'a', encoding='utf-8') as f:
-                    f.write(f'{url}\n')
                 print(f'{contador:03d} - {url}: añadido')
                 encontrados += 1
 
             else:
                 # Cuando no se encuentra el verbo, lo señala.
-                with open('lista_verbos/verbos_failed.txt', 'a', encoding='utf-8') as f:
-                    f.write(f'{url}\n')
                 print(f'{contador:03d} - {url}: no existe')
         else:
             print('Mala respuesta para', url, response.status_code)
-            with open('lista_verbos/verbos_failed.txt', 'a', encoding='utf-8') as f:
-                f.write(f'{url}\n')
 
     except requests.exceptions.ConnectionError as exc2:
         print(exc2)
-        with open('lista_verbos/verbos_failed.txt', 'a', encoding='utf-8') as f:
-            f.write(f'{url}\n')
     contador += 1
-
-# Elimina la primera lista de 'listalistas.txt'
-lines.pop(0)
-with open('lista_verbos/listalistas.txt', 'w', encoding='utf-8') as f:
-    for l in lines:
-        f.write(l)
 
 print(f'Se han añadido {encontrados} verbos.\nTerminado')

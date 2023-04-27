@@ -51,3 +51,7 @@ En la consola de la terminal se irá mostrando el progreso del 001 al 100:
 > 100 - aparar: no existe  
 > Se han añadido 21 verbos.  
 > Terminado  
+
+## Actualización 230427
+- El archivo `fullverbscrap.py`, en combinación con `lista_verbos/verbos_scrapeados.txt`, puede realizar el escrapeo de +1700 verbos que están confirmados en el DPD. Está configurado para escrapearlos todos seguidos con un intervalo de 1 segundo entre cada uno, aunque no es lo más recomendable, ya que puede darse algún fallo en el proceso. Conviene editar para separar las listas o crear un sistema de seguimiento de los verbos que falten si eso sucede. 
+- Se han corregido algunas posibles variaciones que no estaban contempladas y que daban error. Aun así, no descarto que algún verbo tenga algún fallo imprevisto como, por ejemplo, un enlace roto de la RAE.
